@@ -105,12 +105,10 @@ class Swimming(Training):
     count_pool: int
 
     def get_mean_speed(self) -> float:
-
         return (self.length_pool
                 * self.count_pool / self.M_IN_KM / self.duration)
 
     def get_spent_calories(self) -> float:
-
         return (self.get_mean_speed()
                 + self.COEFF_WLK_2) * self.COEFF_WLK_1 * self.weight
 
@@ -122,6 +120,7 @@ def read_package(workout_type: str, data: list) -> Training:
         'RUN': Running,
         'WLK': SportsWalking
     }
+
     if workout_type in dict_trn_types:
         return dict_trn_types[workout_type](*data)
     else:
