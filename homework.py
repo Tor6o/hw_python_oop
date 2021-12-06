@@ -58,13 +58,10 @@ class Running(Training):
     """Тренировка: бег."""
     COEFF_RUN_1: ClassVar[int] = 18
     COEFF_RUN_2: ClassVar[int] = 20
-
-    action: int
-    duration: float
-    weight: float
+    HR_TO_MIN: ClassVar[int] = 60
 
     def get_spent_calories(self) -> float:
-        minutes = self.duration * 60
+        minutes = self.duration * self.HR_TO_MIN
         return ((self.COEFF_RUN_1
                 * self.get_mean_speed() - self.COEFF_RUN_2)
                 * self.weight / self.M_IN_KM * minutes)
@@ -78,9 +75,6 @@ class SportsWalking(Training):
     COEF_CALORIE_5: ClassVar[float] = 0.035
     HR_TO_MIN: ClassVar[int] = 60
 
-    action: int
-    duration: float
-    weight: float
     height: float
 
     def get_spent_calories(self) -> float:
@@ -98,9 +92,6 @@ class Swimming(Training):
     COEFF_WLK_1: ClassVar[int] = 2
     COEFF_WLK_2: ClassVar[float] = 1.1
 
-    action: int
-    duration: float
-    weight: float
     length_pool: float
     count_pool: int
 
@@ -123,8 +114,7 @@ def read_package(workout_type: str, data: list) -> Training:
 
     if workout_type in dict_trn_types:
         return dict_trn_types[workout_type](*data)
-    else:
-        raise ValueError("Неподдерживаемый тип тренировки!")
+    raise ValueError("Неподдерживаемый тип тренировки!")
 
 
 def main(training: Training) -> None:
