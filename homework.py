@@ -114,7 +114,7 @@ def read_package(workout_type: str, data: list) -> Training:
 
     if workout_type in dict_trn_types:
         return dict_trn_types[workout_type](*data)
-    raise ValueError("Неподдерживаемый тип тренировки!")
+    raise ValueError(f"{workout_type} не поддерживается")
 
 
 def main(training: Training) -> None:
